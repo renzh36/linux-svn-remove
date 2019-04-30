@@ -1,24 +1,25 @@
 	因为阿里云到期，需要迁移svn到本地环境。
 1、 首先在本地服务器安装与阿里云服务器相同版本或略高于的svn服务
-使用yum安装
-（1） 配置yum源 ，在/etc/yum.repos.d/目录下新建文件wandisco-svn.repo
-输入如下内容保存
+	使用yum安装
+	（1） 配置yum源 ，在/etc/yum.repos.d/目录下新建文件wandisco-svn.repo
+	输入如下内容保存
 　　[wandiscoSVN]
 　　name=Wandisco SVN Repo
 　　#对应linux发行版本的svn
-baseurl=http://opensource.wandisco.com/rhel/6Server/svn-1.7/RPMS/x86_64/
+	baseurl=http://opensource.wandisco.com/rhel/6Server/svn-1.7/RPMS/x86_64/
 　　enabled=1
-　gpgcheck=0
-（2） yum install subversion
-2、 在新按的SVN服务器上创建代码库svnadmin create /home/svn/svn-admin/repos5
-3、 修改新建仓库中hooks 下的 名为?pre-revprop-change 的文件：
-cp pre-revprop-change.tmpl pre-revprop-change
-4、 chmod 777 ?pre-revprop-change??( ?给pre-revprop-change文件 赋执行权限 ），  修改 ?pre-revprop-change 脚本最后一行 为 　exit ０
-5、 svnsync ?init ?file:///home/yst/svn/svn-admin/repos5 svn://xx.xx.xx.xx （ 初始化 ）
-svnsync ?init ? file:// 新机器仓库目录路径 ? 源服务器的IP（可以通过 http 协议，还可以通过svn协议）? 
+　	gpgcheck=0
+	（2） yum install subversion
+2、 在新按的SVN服务器上创建代码库svnadmin create /home/svn/svn-admin/repos4
+3、 修改新建仓库中hooks 下的名为 pre-revprop-change 的文件：
+	cp pre-revprop-change.tmpl pre-revprop-change
+4、 chmod 777 pre-revprop-change  
+	修改 pre-revprop-change 脚本最后一行 为 　exit ０
+5、 svnsync init file:///home/svn/svn-admin/repos4svn://xx.xx.xx.xx （ 初始化 ）
+	svnsync init  file:// 新机器仓库目录路径  源服务器的IP（可以通过 http 协议，还可以通过svn协议）
 　　　（PS : 这块需要输入密码验证，新服务器的密码    源服务器SVN的账号密码，此账号应该有仓库所有代码的读取权限）
-6、 svnsync sync?file:///home/yst/svn/svn-admin/repos5
+6、 svnsync sync file:///home/svn/svn-admin/repos4
 7、 同步完成后启动svn服务即可。
 8、 复制原来的svn配置文件到新的svn配置文件目录下，重新启动即可。
 9、 启动新安装的svn服务：svnserve -d -r repos4
-10、 查看svn是否启动命令：ps -ef |  grep svn
+10、查看svn是否启动命令：ps -ef |  grep svn
