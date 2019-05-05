@@ -1,4 +1,4 @@
-	因为阿里云到期，需要迁移svn到本地环境。
+	因为阿里云(centos 7.0)到期，需要迁移svn到本地环境(redhat6.7)。
 1、 首先在本地服务器安装与阿里云服务器相同版本或略高于的svn服务
 	使用yum安装
 	（1） 配置yum源 ，在/etc/yum.repos.d/目录下新建文件wandisco-svn.repo
